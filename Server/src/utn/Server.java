@@ -8,7 +8,7 @@ public class Server {
 
     public void start(Integer port) throws IOException {
         serverSocket = new ServerSocket(port);
-        //while(true)
+        while(true)
           new Client(serverSocket.accept()).start();
     }
 
