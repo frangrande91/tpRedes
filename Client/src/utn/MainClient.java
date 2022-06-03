@@ -21,7 +21,6 @@ public class MainClient {
             BufferedReader in = new BufferedReader(new InputStreamReader(socket.getInputStream()));
             Scanner msgOutScann = new Scanner(System.in);
             String msg = " ";
-            String resp = " ";
             Integer flag = 0;
             while (!msg.equals("x")){
                 if (flag == 0) {
@@ -38,8 +37,7 @@ public class MainClient {
                     System.out.print("Enter a message: ");
                     msg = msgOutScann.nextLine();
                     out.println(msg);
-                    resp = in.readLine();
-                    System.out.println(resp);
+                    System.out.println(in.readLine());
                 }
             }
             socket.close();
