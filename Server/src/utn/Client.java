@@ -5,6 +5,7 @@ import java.io.IOException;
 import java.io.InputStreamReader;
 import java.io.PrintWriter;
 import java.net.Socket;
+import java.util.Locale;
 
 public class Client extends Thread { //también se puede usar Runnable
     private final Socket clientSocket;
@@ -19,7 +20,6 @@ public class Client extends Thread { //también se puede usar Runnable
         try {
             PrintWriter out = new PrintWriter(clientSocket.getOutputStream(), true);
             BufferedReader in = new BufferedReader(new InputStreamReader(clientSocket.getInputStream()));
-//            System.out.println("Client " + clientSocket.getInetAddress().getHostName() + " connected!");
             out.println("Service Connected!");
             String msg = "";
             String name = "";
@@ -27,25 +27,27 @@ public class Client extends Thread { //también se puede usar Runnable
             name = in.readLine();
             System.out.println("Client " + name + " connected!");
             do{
-                if(msg.equals("hola")){
-                    out.println("hola como andas?");
+                if(msg.toUpperCase().equals("HOLA")){
+                    System.out.println(name + " says: " + msg);
+                    System.out.println("Match automatic response 'Hola como andas?'");
+                    out.println("Response Server: Hola como andas?");
                     continue;
                 }
-                if(msg.equals("bien y vos?")){
-                    out.println("bien todo bien...");
+                if(msg.toUpperCase().equals("BIEN Y VOS?")){
+                    System.out.println(name + " says: " + msg);
+                    System.out.println("Match automatic response 'Bien todo bien...'");
+                    out.println("Response Server: Bien todo bien...");
                     continue;
                 }
                 if(!msg.equals("")) {
-//                    System.out.println(clientSocket.getInetAddress().getHostAddress() + " says: " + msg);
                     System.out.println(name + " says: " + msg);
-                    out.println("response: " + msg);
+                    out.println("Response Server: Message '" + msg + "' read successfully.");
                 }
             } while(!(msg = in.readLine()).equals("x"));
             out.println("Service Disconected!");
             clientSocket.close();
             out.close();
             in.close();
-//            System.out.println("Client " + clientSocket.getInetAddress().getHostAddress() + " disconected!");
             System.out.println("Client " + name + " disconected!");
         } catch (IOException e) {
             e.printStackTrace();
