@@ -20,6 +20,7 @@ public class Client extends Thread { //también se puede usar Runnable
         try {
             PrintWriter out = new PrintWriter(clientSocket.getOutputStream(), true);
             BufferedReader in = new BufferedReader(new InputStreamReader(clientSocket.getInputStream()));
+            BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
             out.println("Service Connected!");
             String msg = "";
             String name = "";
@@ -27,7 +28,7 @@ public class Client extends Thread { //también se puede usar Runnable
             name = in.readLine();
             System.out.println("Client " + name + " connected!");
             do{
-                if(msg.toUpperCase().equals("HOLA")){
+                /*if(msg.toUpperCase().equals("HOLA")){
                     System.out.println(name + " says: " + msg);
                     System.out.println("Match automatic response 'Hola como andas?'");
                     out.println("Response Server: Hola como andas?");
@@ -38,10 +39,13 @@ public class Client extends Thread { //también se puede usar Runnable
                     System.out.println("Match automatic response 'Bien todo bien...'");
                     out.println("Response Server: Bien todo bien...");
                     continue;
-                }
+                }*/
                 if(!msg.equals("")) {
                     System.out.println(name + " says: " + msg);
-                    out.println("Response Server: Message '" + msg + "' read successfully.");
+                    System.out.println("Response: ");
+                    String resp = br.readLine();
+//                    out.println("Response Server: Message '" + msg + "' read successfully.");
+                    out.println("Response: " + resp);
                 }
             } while(!(msg = in.readLine()).equals("x"));
             out.println("Service Disconected!");
